@@ -139,6 +139,7 @@ export default function BlogPost({ params }: Props) {
           </article>
         </main>
       </div>
+      </div>
     </>
   );
 }

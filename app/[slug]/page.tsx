@@ -128,6 +128,7 @@ export default function PageDetail({ params }: Props) {
           </article>
         </main>
       </div>
+      </div>
     </>
   );
 }
