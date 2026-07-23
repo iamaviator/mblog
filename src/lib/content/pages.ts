@@ -116,6 +116,7 @@ export async function savePage(slug: string, page: Omit<Page, 'slug'>): Promise<
     await put(`${BLOB_PREFIX}${slug}.md`, serializePage(slug, page), {
       access: 'public',
       contentType: 'text/markdown',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {
@@ -134,6 +135,7 @@ export async function deletePage(slug: string): Promise<boolean> {
     await put(`${BLOB_DELETED_PREFIX}${slug}`, 'deleted', {
       access: 'public',
       contentType: 'text/plain',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {

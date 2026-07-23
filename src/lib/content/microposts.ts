@@ -118,6 +118,7 @@ export async function saveMicroPost(
     await put(`${BLOB_PREFIX}${id}.md`, serializeMicroPost(id, microPost), {
       access: 'public',
       contentType: 'text/markdown',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {
@@ -135,6 +136,7 @@ export async function deleteMicroPost(id: string): Promise<boolean> {
     await put(`${BLOB_DELETED_PREFIX}${id}`, 'deleted', {
       access: 'public',
       contentType: 'text/plain',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {

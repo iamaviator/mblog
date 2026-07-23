@@ -125,6 +125,7 @@ export async function savePost(slug: string, post: Omit<Post, 'slug'>): Promise<
     await put(`${BLOB_PREFIX}${slug}.md`, serializePost(slug, post), {
       access: 'public',
       contentType: 'text/markdown',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {
@@ -142,6 +143,7 @@ export async function deletePost(slug: string): Promise<boolean> {
     await put(`${BLOB_DELETED_PREFIX}${slug}`, 'deleted', {
       access: 'public',
       contentType: 'text/plain',
+      allowOverwrite: true,
     });
     return true;
   } catch (error) {
