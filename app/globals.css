@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --text-primary: #000000;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --accent: #111111;
+  --hover-bg: #f3f4f6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Dark Mode */
+html.dark {
+  --background: #1a1a1a;
+  --foreground: #e5e7eb;
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --border-color: #404040;
+  --accent: #e5e7eb;
+  --hover-bg: #3d3d3d;
+}
+
+/* Matrix Mode */
+html.matrix {
+  --background: #000000;
+  --foreground: #00ff00;
+  --bg-primary: #000000;
+  --bg-secondary: #0a0e27;
+  --text-primary: #00ff00;
+  --text-secondary: #00aa00;
+  --border-color: #003300;
+  --accent: #00ff41;
+  --hover-bg: #001a00;
+  font-family: 'Courier New', monospace;
+}
+
+html.matrix * {
+  font-family: 'Courier New', monospace !important;
+}
+
+html.matrix {
+  text-shadow: 0 0 5px #00ff00;
+}
+
+html.matrix a {
+  text-shadow: 0 0 10px #00ff41;
+}
+
+html.matrix button {
+  text-shadow: 0 0 5px #00ff00;
+  border: 1px solid #00ff41;
+}
+
+html.matrix input,
+html.matrix textarea,
+html.matrix select {
+  background-color: #000000;
+  color: #00ff00;
+  border: 1px solid #00ff41 !important;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+/* Techno Mode */
+html.techno {
+  --background: #0a0e27;
+  --foreground: #00ffff;
+  --bg-primary: #0a0e27;
+  --bg-secondary: #0f1a3c;
+  --text-primary: #00ffff;
+  --text-secondary: #0099ff;
+  --border-color: #1e3a8a;
+  --accent: #00ffff;
+  --hover-bg: #1a2a5c;
+}
+
+html.techno {
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+html.techno * {
+  transition: all 0.3s ease;
+}
+
+html.techno a {
+  text-shadow: 0 0 10px #00ffff;
+}
+
+html.techno button {
+  text-shadow: 0 0 8px #00ffff;
+  border: 1px solid #0099ff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+html.techno button:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+html.techno input,
+html.techno textarea,
+html.techno select {
+  background-color: #0f1a3c;
+  color: #00ffff;
+  border: 1px solid #0099ff !important;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+html.techno article,
+html.techno div,
+html.techno section {
+  border-color: #0099ff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Table styling for all themes */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border: 1px solid var(--border-color);
+}
+
+thead {
+  background-color: var(--hover-bg);
+}
+
+th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: bold;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--hover-bg);
+}
+
+tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--border-color);
+}
+
+input,
+textarea,
+select {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
