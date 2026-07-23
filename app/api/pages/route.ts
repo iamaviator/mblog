@@ -5,7 +5,7 @@ import { checkAdminAuth } from '@/lib/utils/auth';
 export async function GET(request: NextRequest) {
   try {
     const isAdmin = checkAdminAuth(request);
-    const pages = isAdmin ? getAllPages() : getPublishedPages();
+    const pages = isAdmin ? await getAllPages() : await getPublishedPages();
     return NextResponse.json(pages);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch pages' }, { status: 500 });
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const success = savePage(slug, {
+    const success = await savePage(slug, {
       title,
       content,
       published: published !== false,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (success) {
-      const newPage = getPage(slug);
+      const newPage = await getPage(slug);
       return NextResponse.json(newPage, { status: 201 });
     } else {
       return NextResponse.json({ error: 'Failed to save page' }, { status: 500 });
@@ -53,7 +53,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
     }
 
-    const success = deletePage(slug);
+    const success = await deletePage(slug);
     if (success) {
       return NextResponse.json({ message: 'Page deleted successfully' }, { status: 200 });
     } else {

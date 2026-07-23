@@ -5,7 +5,7 @@ import { checkAdminAuth } from '@/lib/utils/auth';
 export async function GET(request: NextRequest) {
   try {
     const isAdmin = checkAdminAuth(request);
-    const microPosts = isAdmin ? getAllMicroPosts() : getPublishedMicroPosts();
+    const microPosts = isAdmin ? await getAllMicroPosts() : await getPublishedMicroPosts();
     return NextResponse.json(microPosts);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch micro-posts' }, { status: 500 });
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const success = saveMicroPost(id, {
+    const success = await saveMicroPost(id, {
       sourcePostSlug: sourcePostSlug || null,
       date,
       content,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (success) {
-      const newMicroPost = getMicroPost(id);
+      const newMicroPost = await getMicroPost(id);
       return NextResponse.json(newMicroPost, { status: 201 });
     } else {
       return NextResponse.json({ error: 'Failed to save micro-post' }, { status: 500 });
@@ -53,7 +53,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
     }
 
-    const success = deleteMicroPost(id);
+    const success = await deleteMicroPost(id);
     if (success) {
       return NextResponse.json({ message: 'Micropost deleted successfully' }, { status: 200 });
     } else {
