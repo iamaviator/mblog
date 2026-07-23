@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { use } from 'react';
 import { Page } from '@/lib/types';
 import { markdownToHtml } from '@/lib/utils/markdown';
+import { extractDescription } from '@/lib/utils/seo';
+import { PageSEO } from '@/components/PageSEO';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 interface Props {
@@ -59,7 +61,14 @@ export default function PageDetail({ params }: Props) {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen font-sans md:flex">
+    <>
+      <PageSEO
+        title={page.title}
+        description={extractDescription(page.content, 160)}
+        url={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/${slug}`}
+        type="WebPage"
+      />
+      <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen font-sans md:flex">
       <aside style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }} className="hidden md:flex md:w-64 md:h-screen md:sticky md:top-0 border-r flex-col justify-between px-6 py-8">
         <div>
           <Link href="/" className="text-2xl font-bold block mb-8">
@@ -119,6 +128,6 @@ export default function PageDetail({ params }: Props) {
           </article>
         </main>
       </div>
-    </div>
+    </>
   );
 }

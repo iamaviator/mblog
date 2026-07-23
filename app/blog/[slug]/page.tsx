@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { use } from 'react';
 import { Post } from '@/lib/types';
 import { markdownToHtml } from '@/lib/utils/markdown';
+import { extractDescription } from '@/lib/utils/seo';
+import { PageSEO } from '@/components/PageSEO';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 interface Props {
@@ -59,26 +61,17 @@ export default function BlogPost({ params }: Props) {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen font-sans md:flex">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'BlogPosting',
-              headline: post.title,
-              description: post.excerpt,
-              datePublished: post.date,
-              keywords: post.tags.join(','),
-              author: {
-                '@type': 'Person',
-                name: process.env.NEXT_PUBLIC_SITE_TITLE,
-              },
-            }),
-          }}
-        />
-      </head>
+    <>
+      <PageSEO
+        title={post.title}
+        description={post.excerpt || extractDescription(post.content, 160)}
+        url={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/blog/${slug}`}
+        type="BlogPosting"
+        datePublished={post.date}
+        author={process.env.NEXT_PUBLIC_SITE_TITLE}
+        tags={post.tags}
+      />
+      <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="min-h-screen font-sans md:flex">
 
       <aside style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }} className="hidden md:flex md:w-64 md:h-screen md:sticky md:top-0 border-r flex-col justify-between px-6 py-8">
         <div>
@@ -146,6 +139,6 @@ export default function BlogPost({ params }: Props) {
           </article>
         </main>
       </div>
-    </div>
+    </>
   );
 }
